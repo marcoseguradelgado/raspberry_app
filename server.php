@@ -1,9 +1,9 @@
 <?php
 
 header("content-type:application/json");
-
-$arrayValues = array('Marco Segura' => '2e75510b33c979b0', 'Davide Tonti' => '88PP44', 'Natalia Oviedo' => 'feaf1b0796d76e33');
 $today = date("d/m/Y H:i");
+$url = 'http://192.168.0.109/soap/server.php';
+
 
 if (isset($_POST['typeFunction'])) {
 
@@ -13,16 +13,7 @@ if (isset($_POST['typeFunction'])) {
 
         if (isset($_POST['macAddress'])) {
 
-            $name = array_search($_POST['macAddress'], $arrayValues);
-            if ($name) {
-
-                $values = array('name' => $name, 'registerIn' => '23/10/2014 11:45', 'registerOut' => '0');
-
-                deliverResponse(200, $values);
-            } else {
-                deliverResponse(400, "Invalid request");
-            }
-
+            $postData = array('typeFunction' => 'inicial','macAddress' => $_POST['macAddress']);
 
         } else {
             deliverResponse(400, "Invalid request");
@@ -45,6 +36,14 @@ if (isset($_POST['typeFunction'])) {
     }
 
 }
+
+$curl = curl_init($url);
+curl_setopt ($curl, CURLOPT_POST, true);
+curl_setopt($curl, CURLOPT_POSTFIELDS, $postData); // Your array field
+curl_setopt ($curl, CURLOPT_RETURNTRANSFER, true);
+$resp = curl_exec($curl);
+echo json_encode($resp);
+curl_close($curl);
 
 
 function deliverResponse($status, $data)
