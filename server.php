@@ -22,10 +22,8 @@ if (isset($_POST['typeFunction'])) {
     } else if ($type == 'register') {
 
         if (isset($_POST['uuid']) && isset($_POST['idEmployee']) && isset($_POST['nameEmployee'])) {
-            deliverResponse(200, "Correct");
-        } else {
-            deliverResponse(400, "Cédula del empleado ya existe registrada a otro teléfono");
-        }
+            $postData = array('typeFunction' => 'register','uuid' => $_POST['uuid'],'idEmployee' => $_POST['idEmployee'],'nameEmployee' =>$_POST['nameEmployee']);
+        } 
 
     } else if ($type == 'registerIn') {
         $postData = array('typeFunction' => 'registerIn','uuid' => $_POST['macAddress']);
