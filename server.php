@@ -28,11 +28,9 @@ if (isset($_POST['typeFunction'])) {
         }
 
     } else if ($type == 'registerIn') {
-        deliverResponse(200, $today);
-
+        $postData = array('typeFunction' => 'registerIn','uuid' => $_POST['macAddress']);
     } else if ($type == 'registerOut') {
-        deliverResponse(200, $today);
-
+        $postData = array('typeFunction' => 'registerOut','uuid' => $_POST['macAddress']);
     }
 
 }
