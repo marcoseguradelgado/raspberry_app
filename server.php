@@ -2,7 +2,7 @@
 
 header("content-type:application/json");
 $today = date("d/m/Y H:i");
-$url = 'http://192.168.0.109/soap/server.php';
+$url = 'http://192.168.8.1/soap/server.php';
 
 
 if (isset($_POST['typeFunction'])) {
@@ -23,7 +23,9 @@ if (isset($_POST['typeFunction'])) {
 
         if (isset($_POST['uuid']) && isset($_POST['idEmployee']) && isset($_POST['nameEmployee'])) {
             $postData = array('typeFunction' => 'register','uuid' => $_POST['uuid'],'idEmployee' => $_POST['idEmployee'],'nameEmployee' =>$_POST['nameEmployee']);
-        } 
+        }else{
+            deliverResponse(400, "Invalid request");
+        }
 
     } else if ($type == 'registerIn') {
         $postData = array('typeFunction' => 'registerIn','uuid' => $_POST['macAddress']);
